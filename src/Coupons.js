@@ -9,7 +9,13 @@ class Coupons extends React.Component {
 
     render(){
 
-        let rows = allCoupons.map(coupon => {
+    const burgers = Math.floor(this.props.clicks);
+
+    let filteredCoupons = allCoupons.filter(coupon =>
+        coupon.price <= burgers
+    );
+
+        let rows = filteredCoupons.map(coupon => {
             return (
                 <div className='coupon'key={coupon.id}>
                     <div className='coupon__offer'>
@@ -24,8 +30,8 @@ class Coupons extends React.Component {
 
                     <div className='coupon__button'>
                         <button onClick={() => {this.claimCoupon(coupon.id)}}>
-                        <div className='coupon__price'>{coupon.price}</div>
-                        <div className='coupon__claim'>Claim!</div>
+                            <div className='coupon__price'>{coupon.price}</div>
+                            <div className='coupon__claim'>Claim!</div>
                         </button>
                     </div>
                 </div>
@@ -41,7 +47,7 @@ class Coupons extends React.Component {
                     <h1>Coupons</h1>
                 </div>
                 <div className='content'>
-                    {rows}
+                    {rows.length > 0 ? rows : 'No coupons to claim!'}
                 </div>
             </div>
             </>
